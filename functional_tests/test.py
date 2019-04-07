@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
   def setUp(self):
     self.browser = webdriver.Firefox()
 
@@ -32,6 +32,7 @@ class NewVisitorTest(LiveServerTestCase):
     inputbox = self.browser.find_element_by_id('id_new_item')
     inputbox.send_keys('testing')
     inputbox.send_keys(Keys.ENTER)
+
     self.wait_for_row_in_list_table('testing')
     inputbox = self.browser.find_element_by_id('id_new_item')
     self.assertAlmostEqual(
