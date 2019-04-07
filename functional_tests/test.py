@@ -1,3 +1,4 @@
+import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -9,6 +10,9 @@ import time
 class NewVisitorTest(StaticLiveServerTestCase):
   def setUp(self):
     self.browser = webdriver.Firefox()
+    staging_server = os.environ.get('STAGING_SERVER')
+    if staging_server:
+      self.live_server_url = 'http://' + staging_server
 
   def check_for_row_in_list_table(self, row_text):
     table = self.browser.find_element_by_id('id_list_table')
@@ -40,7 +44,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
       512,
       delta=10
     )
-"""
+
   def test_can_start_a_list_for_one_user(self):
     self.browser.get(self.live_server_url)
     inputbox = self.browser.find_element_by_id('id_new_item')
@@ -109,6 +113,5 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     self.check_for_row_in_list_table('1: Buy peacock feathers')
     self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-"""
-    #self.fail('Finish the test!')
+
 
