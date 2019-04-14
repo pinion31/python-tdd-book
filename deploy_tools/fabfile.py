@@ -2,7 +2,7 @@ import random
 from fabric.contrib.files import append,exists
 from fabric.api import cd, env, local, run
 
-REPO_URL = 'https://github.com/pinion31/python-tdd-example.git'
+REPO_URL = 'https://github.com/pinion31/python-tdd-book.git'
 
 def deploy():
   site_folder = f'/home/{env.user}/chrisc/sites/{env.host}'
@@ -15,7 +15,7 @@ def deploy():
     _update_database()
 
 def _get_latest_source():
-  if exists(.git):
+  if exists('.git'):
     run('git fetch')
   else:
     run(f'git clone {REPO_URL} .')
